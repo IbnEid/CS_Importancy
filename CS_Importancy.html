@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهندس البرمجيات في عصر الذكاء الاصطناعي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #0b1e3d;
+    --navy-light: #132a52;
+    --blue:       #1a6ef5;
+    --blue-soft:  #4a90e8;
+    --accent:     #e84545;
+    --gold:       #f5a623;
+    --teal:       #00c2a8;
+    --white:      #f8faff;
+    --text:       #d0daf0;
+    --text-dim:   #7a8fb5;
+    --card-bg:    rgba(255,255,255,0.04);
+    --card-border:rgba(255,255,255,0.08);
+    --glow-blue:  0 0 40px rgba(26,110,245,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    direction: rtl;
+    text-align: right;
+    line-height: 1.9;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* ─── BACKGROUND MESH ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(26,110,245,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 90%, rgba(0,194,168,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(232,69,69,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed;
+    top: 0; right: 0; left: 0;
+    z-index: 100;
+    background: rgba(11,30,61,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue-soft);
+    letter-spacing: .5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    transition: all .25s;
+    font-weight: 500;
+  }
+
+  .nav-links a:hover {
+    color: var(--white);
+    background: rgba(26,110,245,0.15);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 40px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(26,110,245,0.1);
+    border: 1px solid rgba(26,110,245,0.3);
+    color: var(--blue-soft);
+    padding: 7px 20px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: .4; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 14px;
+    animation: fadeDown .7s .1s ease both;
+  }
+
+  .hero h1 span { color: var(--blue-soft); }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 auto 40px;
+    animation: fadeDown .7s .2s ease both;
+    font-weight: 400;
+  }
+
+  .hero-cards {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 50px;
+    animation: fadeDown .7s .3s ease both;
+  }
+
+  .hero-stat {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 18px 28px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-stat strong {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--blue-soft);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .hero-stat span { font-size: 13px; color: var(--text-dim); }
+
+  .scroll-hint {
+    animation: bounce 2s infinite, fadeDown .8s .5s ease both;
+    color: var(--text-dim);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .scroll-hint::after {
+    content: '↓';
+    font-size: 20px;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  /* ─── SECTION HEADER ─── */
+  .sec-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sec-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to left, transparent, rgba(232,69,69,.3));
+  }
+
+  .sec-title {
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.25;
+    margin-bottom: 20px;
+  }
+
+  .sec-title span { color: var(--blue-soft); }
+
+  .sec-intro {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    line-height: 1.95;
+    margin-bottom: 48px;
+    max-width: 760px;
+  }
+
+  /* ─── PROFILE DUEL ─── */
+  .duel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 36px 0;
+  }
+
+  .duel-card {
+    border-radius: 18px;
+    padding: 28px 26px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  .duel-card:hover {
+    transform: translateY(-4px);
+  }
+
+  .duel-card.cs {
+    background: linear-gradient(135deg, rgba(26,110,245,0.08), rgba(26,110,245,0.02));
+    border-color: rgba(26,110,245,0.3);
+  }
+
+  .duel-card.cs:hover { box-shadow: 0 12px 40px rgba(26,110,245,0.15); }
+
+  .duel-card.sf {
+    background: linear-gradient(135deg, rgba(232,69,69,0.08), rgba(232,69,69,0.02));
+    border-color: rgba(232,69,69,0.3);
+  }
+
+  .duel-card.sf:hover { box-shadow: 0 12px 40px rgba(232,69,69,0.12); }
+
+  .duel-icon {
+    font-size: 2.2rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .duel-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+
+  .duel-card.cs .duel-title { color: #7ab3ff; }
+  .duel-card.sf .duel-title { color: #ff8a8a; }
+
+  .duel-card p {
+    font-size: .93rem;
+    color: var(--text-dim);
+    line-height: 1.85;
+  }
+
+  /* ─── CALLOUT BOXES ─── */
+  .callout {
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin: 28px 0;
+    border-right: 4px solid;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .callout-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .callout-body { flex: 1; }
+
+  .callout-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .callout p { font-size: .93rem; line-height: 1.85; margin: 0; }
+
+  .callout.analogy {
+    background: rgba(245,166,35,0.07);
+    border-color: var(--gold);
+  }
+  .callout.analogy .callout-label { color: var(--gold); }
+  .callout.analogy p { color: #d4b87a; }
+
+  .callout.tip {
+    background: rgba(0,194,168,0.07);
+    border-color: var(--teal);
+  }
+  .callout.tip .callout-label { color: var(--teal); }
+  .callout.tip p { color: #7ad5c9; }
+
+  .callout.warn {
+    background: rgba(232,69,69,0.07);
+    border-color: var(--accent);
+  }
+  .callout.warn .callout-label { color: var(--accent); }
+  .callout.warn p { color: #d47a7a; }
+
+  .callout.info {
+    background: rgba(26,110,245,0.07);
+    border-color: var(--blue);
+  }
+  .callout.info .callout-label { color: var(--blue-soft); }
+  .callout.info p { color: #89acde; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .table-wrap { overflow-x: auto; margin: 32px 0; border-radius: 16px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .9rem;
+  }
+
+  thead {
+    background: linear-gradient(135deg, var(--navy-light), rgba(26,110,245,0.15));
+  }
+
+  thead th {
+    padding: 16px 20px;
+    font-weight: 700;
+    color: var(--white);
+    font-size: .95rem;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--card-border);
+    transition: background .2s;
+  }
+
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+  tbody td {
+    padding: 14px 20px;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.75;
+  }
+
+  tbody td:first-child {
+    font-weight: 700;
+    color: var(--blue-soft);
+    white-space: nowrap;
+    font-size: .88rem;
+  }
+
+  .tag-cs { color: #7ab3ff; }
+  .tag-sf { color: #ff8a8a; }
+
+  /* ─── H3, H4 ─── */
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--white);
+    margin: 40px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h3::before {
+    content: '';
+    width: 4px; height: 20px;
+    background: var(--blue);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #aac4f0;
+    margin: 20px 0 8px;
+  }
+
+  p {
+    font-size: .97rem;
+    color: var(--text);
+    line-height: 1.95;
+    margin-bottom: 16px;
+  }
+
+  strong { color: var(--white); font-weight: 700; }
+
+  /* ─── SCENARIO GRID ─── */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .scenario {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: transform .2s, border-color .2s;
+  }
+
+  .scenario:hover { transform: translateY(-3px); }
+
+  .scenario.cs-s:hover { border-color: rgba(26,110,245,0.4); }
+  .scenario.sf-s:hover { border-color: rgba(232,69,69,0.4); }
+
+  .scenario-tag {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .cs-s .scenario-tag { background: rgba(26,110,245,0.15); color: var(--blue-soft); }
+  .sf-s .scenario-tag { background: rgba(232,69,69,0.15); color: #ff8a8a; }
+
+  .scenario h4 { margin-top: 0; color: var(--white); font-size: .97rem; }
+  .scenario p  { font-size: .88rem; color: var(--text-dim); line-height: 1.8; margin: 0; }
+
+  /* ─── RISK METER ─── */
+  .risk-item { margin-bottom: 22px; }
+
+  .risk-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .risk-bar {
+    height: 10px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .risk-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1.2s cubic-bezier(.4,0,.2,1);
+  }
+
+  .r-low  { background: linear-gradient(to left, #00c2a8, #4dd9c9); }
+  .r-med  { background: linear-gradient(to left, #f5a623, #f7c165); }
+  .r-high { background: linear-gradient(to left, #e84545, #f07070); }
+
+  /* ─── AI IMPACT SPLIT ─── */
+  .ai-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 28px 0;
+  }
+
+  .ai-col {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .ai-col h4 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 16px;
+    font-size: 1rem;
+  }
+
+  .ai-col.safe h4 { color: var(--teal); }
+  .ai-col.risk h4 { color: var(--accent); }
+
+  .ai-point {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: .88rem;
+    line-height: 1.7;
+    color: var(--text-dim);
+    align-items: flex-start;
+  }
+
+  .ai-point::before {
+    content: '◆';
+    font-size: 7px;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .ai-col.safe .ai-point::before { color: var(--teal); }
+  .ai-col.risk .ai-point::before { color: var(--accent); }
+
+  /* ─── ROADMAP ─── */
+  .roadmap {
+    position: relative;
+    padding-right: 38px;
+    margin: 28px 0;
+  }
+
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    right: 15px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), rgba(26,110,245,0.1));
+  }
+
+  .rm-item {
+    position: relative;
+    margin-bottom: 28px;
+    padding-right: 20px;
+  }
+
+  .rm-item::before {
+    content: '';
+    position: absolute;
+    right: -27px; top: 6px;
+    width: 14px; height: 14px;
+    background: var(--navy);
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(26,110,245,0.4);
+  }
+
+  .rm-item h4 { color: #aac4f0; margin: 0 0 6px; }
+  .rm-item p  { font-size: .92rem; color: var(--text-dim); margin: 0; }
+
+  /* ─── TEAM DIAGRAM ─── */
+  .team-box {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 28px 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .team-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .team-row.single { grid-template-columns: 1fr; }
+
+  .team-role {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+
+  .team-role-name {
+    font-size: .92rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .team-role-desc {
+    font-size: .82rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+    letter-spacing: .8px;
+  }
+
+  .b-cs   { background: rgba(26,110,245,0.15); color: var(--blue-soft); }
+  .b-sf   { background: rgba(232,69,69,0.15);  color: #ff8a8a; }
+  .b-both { background: rgba(0,194,168,0.15);  color: var(--teal); }
+
+  /* ─── QUOTE ─── */
+  .blockquote {
+    border-right: 3px solid var(--blue-soft);
+    padding: 16px 22px;
+    margin: 28px 0;
+    background: rgba(26,110,245,0.06);
+    border-radius: 0 10px 10px 0;
+    font-size: 1.05rem;
+    color: #aac4f0;
+    font-style: italic;
+    line-height: 1.9;
+  }
+
+  /* ─── CONCLUSION ─── */
+  .conclusion {
+    background: linear-gradient(135deg, rgba(26,110,245,0.1), rgba(0,194,168,0.06));
+    border: 1px solid rgba(26,110,245,0.25);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 36px 0;
+  }
+
+  .conclusion h3 {
+    color: var(--blue-soft);
+    font-size: 1.4rem;
+    margin-top: 0;
+  }
+
+  .conclusion h3::before { background: var(--blue-soft); }
+
+  .conc-list { list-style: none; padding: 0; margin: 16px 0; }
+
+  .conc-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 12px;
+    font-size: .95rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    align-items: flex-start;
+  }
+
+  .conc-list li::before {
+    content: '✦';
+    color: var(--teal);
+    flex-shrink: 0;
+    font-size: 11px;
+    margin-top: 5px;
+  }
+
+  /* ─── FINAL CTA ─── */
+  .final-wrap {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-top: 28px;
+  }
+
+  .final-icon { font-size: 2.2rem; flex-shrink: 0; }
+  .final-body { flex: 1; }
+  .final-body strong { display: block; color: var(--white); font-size: 1rem; margin-bottom: 6px; }
+  .final-body p { font-size: .9rem; color: var(--text-dim); margin: 0; line-height: 1.8; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: rgba(11,30,61,0.9);
+    border-top: 1px solid var(--card-border);
+    padding: 32px 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    position: relative;
+    z-index: 1;
+  }
+
+  footer span { color: var(--blue-soft); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 90px 20px 50px; }
+    .container { padding: 0 20px; }
+    .duel, .scenario-grid, .ai-split, .team-row { grid-template-columns: 1fr; }
+    section { padding: 56px 0; }
+    .hero-cards { gap: 12px; }
+    .hero-stat { padding: 14px 18px; }
+  }
+
+  /* ─── FADE IN ON SCROLL ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── LIST STYLE ─── */
+  ul.styled {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  ul.styled li {
+    padding: 7px 0 7px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    gap: 12px;
+    font-size: .93rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+    align-items: flex-start;
+  }
+
+  ul.styled li::before {
+    content: '→';
+    color: var(--blue-soft);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to left, transparent, var(--card-border), transparent);
+    margin: 36px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav>
+  <div class="nav-brand">مهندس البرمجيات × الذكاء الاصطناعي</div>
+  <ul class="nav-links">
+    <li><a href="#intro">المقدمة</a></li>
+    <li><a href="#diff">الفروق</a></li>
+    <li><a href="#examples">أمثلة</a></li>
+    <li><a href="#ai">الـ AI</a></li>
+    <li><a href="#conclusion">الخلاصة</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-badge">تحليل تعليمي — عامية مصرية — مايو ٢٠٢٦</div>
+
+  <h1>مهندس <span>البرمجيات</span><br>في عصر الذكاء الاصطناعي</h1>
+
+  <p class="hero-sub">
+    مقارنة عميقة وبسيطة بين مهندس علوم الحاسب ومهندس التكنولوجيا المتخصصة —
+    مين فيهم أقدر يصمد في المستقبل؟
+  </p>
+
+  <div class="hero-cards">
+    <div class="hero-stat">
+      <strong>٥</strong>
+      <span>أقسام رئيسية</span>
+    </div>
+    <div class="hero-stat">
+      <strong>٢</strong>
+      <span>نوع من المهندسين</span>
+    </div>
+    <div class="hero-stat">
+      <strong>AI</strong>
+      <span>بيغيّر قواعد اللعبة</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">اسكرول للأسفل</div>
+</div>
+
+<!-- ═══ SECTION 1: INTRO ═══ -->
+<section id="intro">
+  <div class="container">
+    <div class="sec-label fade-in">القسم الأول</div>
+    <h2 class="sec-title fade-in">المقدمة — <span>إحنا بنتكلم عن إيه؟</span></h2>
+    <p class="sec-intro fade-in">
+      لو بتدرس Computer Science أو بتشتغل في التكنولوجيا، أكيد لاحظت إن في ناس اتعلموا البرمجة بطرق مختلفة جداً — بعضهم درس ٤–٥ سنين في الجامعة، وبعضهم اتعلم في ٦ شهور أو على نفسه. السؤال المهم: هل الفرق ده بيأثر فعلاً على الشغل والكاريير؟ الإجابة — <strong>أيوه، وبشكل كبير.</strong>
+    </p>
+
+    <div class="duel fade-in">
+      <div class="duel-card cs">
+        <span class="duel-icon">🎓</span>
+        <div class="duel-title">مهندس علوم الحاسب (CS Engineer)</div>
+        <p>
+          درس Computer Science في الجامعة لمدة ٣–٥ سنين. اتعلم الأساسيات العميقة: الخوارزميات، تراكيب البيانات، أنظمة التشغيل، الشبكات، وغيرها. بيفكر في الأنظمة كلها مش بس في الكود.
+        </p>
+      </div>
+      <div class="duel-card sf">
+        <span class="duel-icon">⚡</span>
+        <div class="duel-title">مهندس التكنولوجيا المتخصصة (Stack Engineer)</div>
+        <p>
+          اتعلم Framework أو Stack معين — زي React، Node.js، Django، أو .NET — من خلال Bootcamp أو كورسات أونلاين. بيبرع في أدواته المحددة وبيشتغل بسرعة جداً فيها.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout analogy fade-in">
+      <div class="callout-icon">🔍</div>
+      <div class="callout-body">
+        <div class="callout-label">تشبيه بسيط</div>
+        <p>مهندس CS زي الدكتور اللي درس الطب من الأساس — فهم جسم الإنسان والكيمياء الحيوية. أما مهندس Stack فهو زي الممرض المتخصص اللي اتدرّب على عمليات معينة بإتقان. الاتنين مهمين، بس لكل واحد دوره.</p>
+      </div>
+    </div>
+
+    <div class="callout info fade-in">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <div class="callout-label">ليه الموضوع مهم دلوقتي؟</div>
+        <p>الذكاء الاصطناعي — ChatGPT، GitHub Copilot وغيرهم — بدأ يكتب كود بنفسه. ده بيخلّي السؤال مش بس "مين أحسن مهندس؟" لكن <strong>"مين المهندس اللي هيفضل ليه قيمة لما الـ AI بيكتب الكود؟"</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 2: DIFFERENCES ═══ -->
+<section id="diff">
+  <div class="container">
+    <div class="sec-label fade-in">القسم الثاني</div>
+    <h2 class="sec-title fade-in">الفروق الجوهرية — <span>جوهر الموضوع</span></h2>
+    <p class="sec-intro fade-in">
+      الفرق مش بس إن واحد درس في الجامعة والتاني لأ. الفرق الأعمق هو في <strong>طريقة التفكير</strong>، وده هو اللي بيأثر على كل حاجة تانية.
+    </p>
+
+    <h3 class="fade-in">١. عمق المعرفة مقابل سرعة الإنتاج</h3>
+    <p class="fade-in">
+      مهندس CS بيتعلم من الـ <strong>"ليه"</strong> — ليه الخوارزمية دي أسرع؟ ليه البيانات بتتخزن كده؟ المعرفة دي مش مرتبطة بلغة أو Framework معين. لو اتغيرت التكنولوجيا، هو يقدر يتأقلم أسرع لأن المبادئ واحدة.
+    </p>
+    <p class="fade-in">
+      مهندس Stack بيتعلم من الـ <strong>"إزاي"</strong> — إزاي أعمل Login في React؟ إزاي أوصّل قاعدة بيانات في Django؟ معرفته عميقة في الأدوات دي بالذات. لو الأدوات اتغيرت، ممكن يحتاج وقت أطول.
+    </p>
+
+    <div class="callout analogy fade-in">
+      <div class="callout-icon">🔧</div>
+      <div class="callout-body">
+        <div class="callout-label">تشبيه تاني</div>
+        <p>مهندس CS زي الميكانيكي اللي عارف المحرك من الأساس — يصلّح أي سيارة حتى لو ما شافهاش قبل كده. مهندس Stack زي الميكانيكي المتخصص في تويوتا بس — شاطر جداً فيها، لكن لو جالوا بنز هيتعب.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-in">٢. مقارنة شاملة بين النوعين</h3>
+    <div class="table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th>المحور</th>
+            <th class="tag-cs">مهندس CS</th>
+            <th class="tag-sf">مهندس Stack</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>أساس التعلم</td>
+            <td>مبادئ نظرية → تطبيق</td>
+            <td>أدوات عملية → أنماط</td>
+          </tr>
+          <tr>
+            <td>السرعة في البداية</td>
+            <td>أبطأ نسبياً في البداية</td>
+            <td>أسرع جداً في التسليم الأول</td>
+          </tr>
+          <tr>
+            <td>مشاكل غير متوقعة</td>
+            <td>يتعامل معها براحة أكبر</td>
+            <td>ممكن يحتاج وقت أو مساعدة</td>
+          </tr>
+          <tr>
+            <td>تعلم تكنولوجيا جديدة</td>
+            <td>سريع — المبادئ واحدة</td>
+            <td>أبطأ — بيبدأ من الصفر</td>
+          </tr>
+          <tr>
+            <td>تصميم الأنظمة الكبيرة</td>
+            <td>قوي جداً</td>
+            <td>يحتاج تطوير إضافي</td>
+          </tr>
+          <tr>
+            <td>الكاريير على المدى البعيد</td>
+            <td>مرونة عالية جداً</td>
+            <td>يحتاج استثمار ذاتي مستمر</td>
+          </tr>
+          <tr>
+            <td>الراتب الابتدائي</td>
+            <td>متقارب نسبياً</td>
+            <td>متقارب نسبياً</td>
+          </tr>
+          <tr>
+            <td>الراتب بعد ١٠ سنين</td>
+            <td>أعلى بكثير في الغالب</td>
+            <td>يعتمد على التطوير الذاتي</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="fade-in">٣. مسار الكاريير مع الوقت</h3>
+
+    <div class="roadmap fade-in">
+      <div class="rm-item">
+        <h4>السنوات ٠–٣: البداية</h4>
+        <p>مهندس Stack بيكون أسرع في التسليم والإنتاج. مهندس CS بياخد وقت يتأقلم مع الأدوات، لكن بيستوعب أعمق.</p>
+      </div>
+      <div class="rm-item">
+        <h4>السنوات ٣–٧: التميز الحقيقي</h4>
+        <p>مهندس CS بيبدأ يتميز في الأدوار المعقدة: Architecture، Infrastructure، وBackend معقد. مهندس Stack ممكن يوصل لـ ceiling إلا لو استثمر في التعمق.</p>
+      </div>
+      <div class="rm-item">
+        <h4>السنوات ٧–١٥: القيادة التقنية</h4>
+        <p>مهندس CS طبيعي يوصل لـ Staff Engineer أو Principal أو Architect. مهندس Stack يقدر يوصل كمان لكن بجهد إضافي في التعلم الذاتي.</p>
+      </div>
+      <div class="rm-item">
+        <h4>السنوات ١٥+: الاندماج</h4>
+        <p>المهندسين اللي استمروا في التعلم بيتقاربوا في المستوى. الفرق الأساسي بيبقى في الفرص الكمولاتيف اللي اتاحت لكل واحد في بداية مساره.</p>
+      </div>
+    </div>
+
+    <div class="callout warn fade-in">
+      <div class="callout-icon">⚠️</div>
+      <div class="callout-body">
+        <div class="callout-label">غلطة شائعة</div>
+        <p>ناس كتير بتاخد كورس React وتحس إنها بقت مهندسة كاملة. الحقيقة إن React مجرد أداة — والمهندس الحقيقي بيعرف يفكر في المشاكل حتى لو React اتشالت من السوق بكره.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 3: REAL WORLD EXAMPLES ═══ -->
+<section id="examples">
+  <div class="container">
+    <div class="sec-label fade-in">القسم الثالث</div>
+    <h2 class="sec-title fade-in">أمثلة من الواقع — <span>كل واحد بيبرع في إيه؟</span></h2>
+    <p class="sec-intro fade-in">
+      الكلام النظري حلو، بس المثال الواقعي هو اللي بيفرّق. هنشوف مواقف حقيقية من الشغل ونشوف كل مهندس بيأدّي فيها إيه.
+    </p>
+
+    <h3 class="fade-in">مواقف مهندس CS بيبرع فيها</h3>
+
+    <div class="scenario-grid fade-in">
+      <div class="scenario cs-s">
+        <span class="scenario-tag">CS — سيناريو ١</span>
+        <h4>🏦 نظام دفع إلكتروني بيتعطل</h4>
+        <p>شركة FinTech عندها نظام بيخصم فلوس مرتين أحياناً. المشكلة دي بتحتاج فهم الـ distributed systems والـ idempotency — مفاهيم CS أصيلة ما بتتعلمهاش في كورس React.</p>
+      </div>
+      <div class="scenario cs-s">
+        <span class="scenario-tag">CS — سيناريو ٢</span>
+        <h4>🐛 API بيبطأ تحت الضغط</h4>
+        <p>تطبيق بيتعطل تحت الـ load بدون سبب واضح. المشكلة في الـ connection pool وإعدادات الـ database query planner — بتحتاج فهم عميق للـ OS وقواعد البيانات.</p>
+      </div>
+      <div class="scenario cs-s">
+        <span class="scenario-tag">CS — سيناريو ٣</span>
+        <h4>🔐 تصميم نظام أمان من الصفر</h4>
+        <p>تصميم Authentication آمن يحتاج معرفة بـ cryptographic primitives وJWT design وفهم للـ timing attacks — كلها مواد CS أساسية.</p>
+      </div>
+      <div class="scenario cs-s">
+        <span class="scenario-tag">CS — سيناريو ٤</span>
+        <h4>📐 اختيار Architecture المناسبة</h4>
+        <p>قرار: Microservices ولا Monolith؟ Event-driven ولا Request-response؟ القرارات دي بتأثر على السنين الجاية وبتحتاج مهندس يفهم الـ tradeoffs بعمق.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-in">مواقف مهندس Stack بيبرع فيها</h3>
+
+    <div class="scenario-grid fade-in">
+      <div class="scenario sf-s">
+        <span class="scenario-tag">Stack — سيناريو ١</span>
+        <h4>🖥️ Dashboard إداري متكامل</h4>
+        <p>شركة SaaS محتاجة Admin Panel بجداول وفلاتر وexport. مهندس React + TypeScript بيعمل ده بسرعة وكفاءة من غير ما يوقف عند الـ system design.</p>
+      </div>
+      <div class="scenario sf-s">
+        <span class="scenario-tag">Stack — سيناريو ٢</span>
+        <h4>🔗 ربط APIs خارجية بسرعة</h4>
+        <p>Startup محتاجة في أسبوعين: Stripe للدفع، Twilio للـ SMS، SendGrid للـ Email. مهندس Stack بيقرأ الـ Documentation بسرعة وبيشحن.</p>
+      </div>
+      <div class="scenario sf-s">
+        <span class="scenario-tag">Stack — سيناريو ٣</span>
+        <h4>📱 Feature جديدة في تطبيق موبايل</h4>
+        <p>React Native Onboarding flow جديد. مهندس Stack المتخصص عارف الـ navigation patterns والـ gesture handlers وبيشحن بسرعة.</p>
+      </div>
+      <div class="scenario sf-s">
+        <span class="scenario-tag">Stack — سيناريو ٤</span>
+        <h4>⚡ Prototype سريع للاختبار</h4>
+        <p>Product Manager عايز يختبر فكرة مع users قبل الاستثمار فيها. Full-Stack Engineer بيبني Next.js app حقيقي في يوم واحد.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-in">إزاي الاتنين بيشتغلوا في نفس الفريق؟</h3>
+    <p class="fade-in">التيم المتكامل بيحتاج الاتنين في أدوار مختلفة:</p>
+
+    <div class="team-box fade-in">
+      <div class="team-row single">
+        <div class="team-role">
+          <div class="team-role-name">Staff / Principal Engineer</div>
+          <div class="team-role-desc">بيحدد الـ Architecture العامة، بيشوف الـ trade-offs، وبيكون المرجع التقني للتيم كله</div>
+          <span class="badge b-cs">غالباً CS</span>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="team-role">
+          <div class="team-role-name">Senior Engineer — Backend</div>
+          <div class="team-role-desc">شغل في الـ services المعقدة والـ database design والـ performance</div>
+          <span class="badge b-both">CS أو Stack متمرس</span>
+        </div>
+        <div class="team-role">
+          <div class="team-role-name">Senior Engineer — Frontend</div>
+          <div class="team-role-desc">UI architecture، performance، accessibility، وتجربة المستخدم</div>
+          <span class="badge b-sf">غالباً Stack</span>
+        </div>
+      </div>
+      <div class="team-row">
+        <div class="team-role">
+          <div class="team-role-name">Mid-Level Engineers</div>
+          <div class="team-role-desc">بيخلّصوا Features بشكل مستقل وبيساعدوا في Code Review</div>
+          <span class="badge b-both">الاتنين</span>
+        </div>
+        <div class="team-role">
+          <div class="team-role-name">Junior Engineers</div>
+          <div class="team-role-desc">بينفذوا Tasks محددة وبيكتبوا Tests وبيتعلموا</div>
+          <span class="badge b-sf">غالباً Stack في البداية</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout tip fade-in">
+      <div class="callout-icon">💡</div>
+      <div class="callout-body">
+        <div class="callout-label">نصيحة ذهبية</div>
+        <p>التوتر الأكتر شيوعاً في الفرق المختلطة: مهندس CS بيتكلم بمصطلحات نظرية مش الكل فاهمها، ومهندس Stack عايز يشحن بسرعة من غير تناقش. التيمات الناجحة بتحل ده بالـ documentation وثقافة التعليم المتبادل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 4: AI IMPACT ═══ -->
+<section id="ai">
+  <div class="container">
+    <div class="sec-label fade-in">القسم الرابع</div>
+    <h2 class="sec-title fade-in">الذكاء الاصطناعي — <span>بيغيّر إيه بالظبط؟</span></h2>
+    <p class="sec-intro fade-in">
+      الـ AI مش بس موضة — ده تحوّل حقيقي في طبيعة شغل المهندسين. ChatGPT وGitHub Copilot بقوا جزء أساسي من الشغل الحديث. بس السؤال: <strong>مين اتأثر أكتر ومين أقل؟</strong>
+    </p>
+
+    <h3 class="fade-in">الـ AI بيعمل إيه كويس جداً؟</h3>
+    <ul class="styled fade-in">
+      <li><strong>الـ Boilerplate Code</strong> — الكود المتكرر والروتيني زي الـ CRUD operations والـ API endpoints الأساسية</li>
+      <li><strong>إكمال الكود</strong> — بيقترح باقي السطر أو الـ function وانت بتكتب</li>
+      <li><strong>ترجمة الكود بين اللغات</strong> — بيحوّل Python لـ JavaScript أو Java لـ Kotlin</li>
+      <li><strong>كتابة Unit Tests</strong> — بيولّد Test Cases للـ functions الواضحة</li>
+      <li><strong>توثيق الكود</strong> — بيكتب Comments وDocumentation بشكل ممتاز</li>
+      <li><strong>إصلاح Syntax Errors</strong> — بيعرف الأخطاء الشائعة ويصلّحها</li>
+    </ul>
+
+    <div class="callout analogy fade-in">
+      <div class="callout-icon">🤖</div>
+      <div class="callout-body">
+        <div class="callout-label">تشبيه للـ AI</div>
+        <p>الـ AI في البرمجة زي الآلة الحاسبة في الرياضيات. مش لازم تعمل الضرب يدوياً — لكن لو مش فاهم الرياضيات، مش هتعرف تحل المسألة حتى لو في آلة قدامك. الـ AI بيسرّع الكتابة، بس التفكير تبعك.</p>
+      </div>
+    </div>
+
+    <h3 class="fade-in">الـ AI مش بيقدر يعمل إيه لحد دلوقتي؟</h3>
+    <ul class="styled fade-in">
+      <li><strong>تصميم الأنظمة المعقدة</strong> — قرار Microservices ولا Monolith؟ ده قرار بشري محتاج حكمة وخبرة</li>
+      <li><strong>فهم متطلبات الـ Business</strong> — إيه اللي المستخدم محتاجه فعلاً مش بس اللي قاله</li>
+      <li><strong>Debugging المعقد عبر الأنظمة</strong> — مشكلة بين Frontend وDatabase وتالت بيأثر — الـ AI هيتعب</li>
+      <li><strong>ابتكار حلول جديدة</strong> — الـ AI بيكرر اللي شافه، مش بيخترع حاجة جديدة حقيقية</li>
+      <li><strong>الأمان والـ Security</strong> — أبحاث Stanford أثبتت إن developers اللي استخدموا الـ AI كتبوا كود أقل أماناً في المتوسط</li>
+    </ul>
+
+    <h3 class="fade-in">كيف الـ AI أثّر على كل نوع؟</h3>
+
+    <div class="ai-split fade-in">
+      <div class="ai-col safe">
+        <h4>🛡️ مهندس CS — أقل تأثراً</h4>
+        <div class="ai-point">المهام اللي بيتميز فيها (System Design، Architecture) مش بيعملها الـ AI</div>
+        <div class="ai-point">الـ AI بيكون مضاعف لقدراته — بيكتب الكود الروتيني وهو يفكر في المشاكل الأعمق</div>
+        <div class="ai-point">بيقدر يقيّم ويراجع كود الـ AI لأنه فاهم الـ principles</div>
+        <div class="ai-point">الـ AI بيزود إنتاجيته بدل ما يحل محله</div>
+      </div>
+      <div class="ai-col risk">
+        <h4>⚡ مهندس Stack — أكتر تأثراً</h4>
+        <div class="ai-point">الـ AI بيكتب نفس الكود اللي هو بيكتبه بشكل مقبول جداً</div>
+        <div class="ai-point">الوظايف الجونيور Stack ممكن تتقلل مع الوقت</div>
+        <div class="ai-point">المطلوب منه دلوقتي يعمل شغل Senior وهو لسه Mid</div>
+        <div class="ai-point">محتاج يطوّر نفسه في CS foundations أو في توجيه الـ AI بذكاء</div>
+      </div>
+    </div>
+
+    <h3 class="fade-in">مستوى الخطر على كل دور (خلال ٥–١٠ سنين)</h3>
+
+    <div class="fade-in">
+      <div class="risk-item">
+        <div class="risk-header">
+          <span>Junior Stack Engineer</span>
+          <span style="color:#f07070">خطر عالي</span>
+        </div>
+        <div class="risk-bar"><div class="risk-fill r-high" style="width:80%"></div></div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-header">
+          <span>Mid-Level Stack Engineer</span>
+          <span style="color:#f07070">خطر متوسط–عالي</span>
+        </div>
+        <div class="risk-bar"><div class="risk-fill r-high" style="width:60%"></div></div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-header">
+          <span>Senior Stack Engineer (متخصص عميق)</span>
+          <span style="color:#4dd9c9">خطر منخفض</span>
+        </div>
+        <div class="risk-bar"><div class="risk-fill r-low" style="width:28%"></div></div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-header">
+          <span>Junior CS Engineer</span>
+          <span style="color:#f7c165">خطر متوسط</span>
+        </div>
+        <div class="risk-bar"><div class="risk-fill r-med" style="width:42%"></div></div>
+      </div>
+      <div class="risk-item">
+        <div class="risk-header">
+          <span>Senior CS Engineer / Architect</span>
+          <span style="color:#4dd9c9">خطر منخفض جداً</span>
+        </div>
+        <div class="risk-bar"><div class="risk-fill r-low" style="width:14%"></div></div>
+      </div>
+    </div>
+
+    <h3 class="fade-in">نظرية "رفع مستوى التجريد"</h3>
+    <p class="fade-in">
+      في تاريخ الكومبيوتر، ناس كانوا بيكتبوا في Assembly، وجه C فسهّل الموضوع. وجه Python وJava فـ المهندس مش محتاج يهتم بالـ memory. دلوقتي الـ AI بيرفع المستوى تاني — <strong>المهندس بيقول للـ AI "إيه" وهو بيعمل الـ "إزاي".</strong>
+    </p>
+    <p class="fade-in">
+      كل ما المستوى ارتفع، قيمة الـ "إيه" زادت وقيمة الـ "إزاي" قلّت. وده بالظبط بيعني إن مهندس CS — اللي بيفكر في الـ "إيه" والـ "ليه" — أكثر استعداداً للمستقبل.
+    </p>
+
+    <div class="callout info fade-in">
+      <div class="callout-icon">📊</div>
+      <div class="callout-body">
+        <div class="callout-label">مصدر بحثي</div>
+        <p>تقرير World Economic Forum للوظايف ٢٠٢٣ بيقول إن "التفكير التحليلي" و"حل المشاكل المعقدة" من أكتر المهارات اللي هتزيد قيمتها لحد ٢٠٢٧ — ودي بالظبط المهارات اللي بيطوّرها تعليم CS.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION 5: CONCLUSION ═══ -->
+<section id="conclusion">
+  <div class="container">
+    <div class="sec-label fade-in">القسم الخامس</div>
+    <h2 class="sec-title fade-in">الخلاصة — <span>إيه اللي لازم تعمله؟</span></h2>
+    <p class="sec-intro fade-in">
+      بعد كل اللي اتكلمنا فيه، الخلاصة مش إن واحد أحسن من التاني. الخلاصة إن كل واحد لازم يعرف هو فين، وإيه اللي لازم يضيفه على نفسه في عصر الـ AI.
+    </p>
+
+    <div class="conclusion fade-in">
+      <h3>الحقائق الكبيرة من التحليل</h3>
+      <ul class="conc-list">
+        <li>مهندس CS ومهندس Stack مش أعداء — هما complementary، كل واحد بيكمّل التاني في الفريق</li>
+        <li>الـ AI بيأثر على الاتنين، لكن بيأثر على Stack أكتر لأن الكود الروتيني هو اللي بيعمله الـ AI</li>
+        <li>المهارة اللي مش هيقدر الـ AI ياخدها منك: التفكير في الأنظمة، فهم المتطلبات، والحكم الإنساني</li>
+        <li>على المدى البعيد، المسارين بيتقاربوا لو الاتنين استمروا في التعلم المستمر</li>
+        <li>مهندس Stack اللي بيتعلم CS foundations هيكون أقوى بكتير في المستقبل</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="fade-in">لو إنت مهندس Stack — إيه اللي تعمله؟</h3>
+
+    <div class="roadmap fade-in">
+      <div class="rm-item">
+        <h4>ابدأ تتعلم CS Foundations</h4>
+        <p>Algorithms وData Structures مش هدفها إنك تعدّي Interview بس — هما بيغيّروا طريقة تفكيرك. مصادر مجانية ممتازة: MIT OpenCourseWare وTeach Yourself CS.</p>
+      </div>
+      <div class="rm-item">
+        <h4>اقرأ في System Design</h4>
+        <p>كتاب "Designing Data-Intensive Applications" من أفضل الكتب. بيفسر إزاي الأنظمة الكبيرة بتتبني وبتتكسر بلغة واضحة.</p>
+      </div>
+      <div class="rm-item">
+        <h4>اتعلم تستخدم الـ AI بذكاء</h4>
+        <p>متعاملش معاه كـ "بديل للتفكير" — اتعامل معاه كـ "أداة بتسرّع تنفيذ أفكارك". اللي بيقدر يوجّه الـ AI صح ويراجع output بذكاء — ده المهندس القيّم في المستقبل.</p>
+      </div>
+      <div class="rm-item">
+        <h4>دوّر على Mentors بخلفية CS</h4>
+        <p>Code Review من مهندس CS بيفكر معاك بشكل مختلف — من أسرع الطرق إنك تكتسب طريقة التفكير دي من غير ما تدرس رسمياً.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 class="fade-in">لو إنت مهندس CS — إيه اللي تعمله؟</h3>
+
+    <div class="roadmap fade-in">
+      <div class="rm-item">
+        <h4>حافظ على الاتصال بالواقع التقني</h4>
+        <p>المعرفة النظرية اللي ما بتتطبّقش بتصدأ. ابني Projects، ساهم في Open Source، اشتغل في مشاكل حقيقية.</p>
+      </div>
+      <div class="rm-item">
+        <h4>طوّر Communication Skills</h4>
+        <p>المهندس اللي يقدر يشرح حاجة معقدة بشكل بسيط — ده أندر من اللي بيكتب الكود الصح. التواصل مع stakeholders غير تقنيين ميزة ذهبية.</p>
+      </div>
+      <div class="rm-item">
+        <h4>استخدم الـ AI كـ Force Multiplier</h4>
+        <p>الـ AI بيكتب الكود الروتيني؟ تمام — فضّل وقتك للتصميم والـ architecture والمشاكل المعقدة.</p>
+      </div>
+      <div class="rm-item">
+        <h4>اعمل Mentoring للتيم</h4>
+        <p>مهندس CS اللي بيرفع مستوى التيم كله أقوى بكتير من اللي بيشتغل لوحده. ده هو الـ Staff Engineer الحقيقي.</p>
+      </div>
+    </div>
+
+    <div class="blockquote fade-in">
+      "مستقبل هندسة البرمجيات مش للمهندس اللي بيكتب أكتر كود — هو للمهندس اللي بيفهم المشاكل اللي المفروض الكود يحلها، ويعرف يستخدم كل الأدوات المتاحة — بما فيها الـ AI — عشان يحلها بأفضل طريقة."
+    </div>
+
+    <div class="final-wrap fade-in">
+      <div class="final-icon">✅</div>
+      <div class="final-body">
+        <strong>خلاصة في سطرين</strong>
+        <p>مهندس CS أقوى في التفكير العميق والأنظمة المعقدة. مهندس Stack أسرع في التسليم في مجاله. الذكاء الاصطناعي بيضغط على اللي شغلته الكتابة بس — وبيحرر اللي شغلته التفكير. <strong>فكّر أكتر، واكتب بذكاء.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>تحليل تعليمي بالعامية المصرية — <span>مايو ٢٠٢٦</span></p>
+  <p style="margin-top:8px; font-size:12px;">مصادر: ACM CC2020 · IEEE SWEBOK · WEF Future of Jobs 2023 · McKinsey Global Institute · GitHub Copilot Research</p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Animate risk bars when visible
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.risk-fill').forEach(fill => {
+          const w = fill.style.width;
+          fill.style.width = '0%';
+          requestAnimationFrame(() => {
+            setTimeout(() => { fill.style.width = w; }, 100);
+          });
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.fade-in').forEach(el => {
+    if (el.querySelector && el.querySelector('.risk-fill')) barObserver.observe(el);
+  });
+</script>
+</body>
+</html>
